@@ -56,10 +56,9 @@ class VkUser:
             return
 
         dict_photo_info = response.json()
-        list_photo_info = dict_photo_info['response']['items']
 
         dict_url_and_name_photo = dict()
-        for photo_info in list_photo_info:
+        for photo_info in dict_photo_info['response']['items']:
             photo_sizes_list = photo_info['sizes']
             name_photo = photo_info['likes']['count']
             date_photo = photo_info['date']
@@ -67,15 +66,12 @@ class VkUser:
             dict_width_and_url_photo = dict()
             for type_photo in photo_sizes_list:
                 list_type_and_url = list()
-                url_photo = type_photo['url']
-                width = type_photo['width']
-                type_photo = type_photo['type']
-                list_type_and_url.append(type_photo)
-                list_type_and_url.append(url_photo)
-                dict_width_and_url_photo[width] = list_type_and_url
+                list_type_and_url.append(type_photo['type'])
+                list_type_and_url.append(type_photo['url'])
+                dict_width_and_url_photo[type_photo['width']] = list_type_and_url
+
             url_photo_list = list(dict_width_and_url_photo.values())
             width_list = list(dict_width_and_url_photo.keys())
-
             largest_image_link = url_photo_list[width_list.index(max(width_list))]
 
             for name in dict_url_and_name_photo.keys():
