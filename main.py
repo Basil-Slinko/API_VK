@@ -1,4 +1,5 @@
 import requests
+from tqdm import tqdm
 
 
 class YandexDisk:
@@ -82,7 +83,7 @@ class VkUser:
         ya_disk_new_folder = YandexDisk(UserData.token_ya_disk)
         ya_disk_new_folder.create_a_folder()
         log_json = list()
-        for name_photo, url_photo in dict_url_and_name_photo.items():
+        for name_photo, url_photo in tqdm(dict_url_and_name_photo.items()):
             ya_disk_new_folder.upload_file_to_ya_disk(name_photo, url_photo[1])
             dict_info_about_file = dict(file_name=None, size=None)
             dict_info_about_file["file_name"] = f'{name_photo}.jpg'
